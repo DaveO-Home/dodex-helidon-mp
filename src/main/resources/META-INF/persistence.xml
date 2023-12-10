@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+    <persistence-unit name="mariadbdev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsmariadbdev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="test"/>
+            <property name="mode" value="dev"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mariadbprod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsmariadbprod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="mode" value="dev"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="postgresdev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dspostgresdev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="postgresprod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dspostgresprod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="h2dev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsh2dev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="h2prod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsh2prod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="oracledev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsoradev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="oracleprod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsoraprod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mssqldev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsmssqldev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mssqlprod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsmssqlprod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="ibmdb2dev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsdb2dev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="testdb"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="ibmdb2prod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsdb2prod</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+
+
+    <!--      <property name="hibernate.show_sql" value="true"/>-->
+    <!--      <property name="hibernate.format_sql" value="true"/>-->
+    <!--      <property name="hibernate.highlight_sql" value="true"/>-->
+
+    <!--      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+    <!--      <property name="hibernate.hbm2ddl.auto" value="create"/>-->
+    <!--      <property name="jakarta.persistence.sql-load-script-source" value="META-INF/init_script.sql"/>-->
+</persistence>

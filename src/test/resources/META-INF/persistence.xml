@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
+             version="3.1">
+
+
+    <persistence-unit name="h2testdev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>dsh2testdev</jta-data-source>
+        <class>dmo.fs.entities.Undelivered</class>
+        <class>dmo.fs.entities.Message</class>
+        <class>dmo.fs.entities.User</class>
+        <class>dmo.fs.entities.Group</class>
+        <class>dmo.fs.entities.Member</class>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+        </properties>
+    </persistence-unit>
+
+
+
+    <!--      <property name="hibernate.show_sql" value="true"/>-->
+    <!--      <property name="hibernate.format_sql" value="true"/>-->
+    <!--      <property name="hibernate.highlight_sql" value="true"/>-->
+
+    <!--      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
+    <!--      <property name="hibernate.hbm2ddl.auto" value="create"/>-->
+    <!--      <property name="jakarta.persistence.sql-load-script-source" value="META-INF/init_script.sql"/>-->
+</persistence>

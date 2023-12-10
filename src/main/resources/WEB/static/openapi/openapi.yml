@@ -1,0 +1,252 @@
+openapi: 3.0.0
+info:
+  description: An API for managing Dodex Groups
+  title: Groups API
+  version: 1.0.0
+servers:
+- description: Local server
+  url: http://localhost:8060
+paths:
+  /groups:
+    get:
+      description: Returns all groups from the system that the user has access to
+      operationId: getAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/listGroup'
+                type: array
+          description: A list of groups.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      x-accepts: application/json
+  /addGroup:
+    get:
+      description: Returns all groups from the system that the user has access to
+      operationId: getNextAll
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/listGroup'
+                type: array
+          description: A list of groups.
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      x-accepts: application/json
+    put:
+      operationId: addGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+        description: Information about a new group in the system
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+          description: Return a 200 status to indicate that the data was received
+            successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      x-content-type: application/json
+      x-accepts: application/json
+  /removeGroup:
+    delete:
+      operationId: deleteGroup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+        description: Information about a new group in the system
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GroupResponse'
+          description: Return a 200 status to indicate that the data was received
+            successfully
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      x-content-type: application/json
+      x-accepts: application/json
+  /getGroup/{groupId}:
+    post:
+      description: Info for a specific group
+      operationId: groupById
+      parameters:
+      - description: group id parameter
+        explode: false
+        in: path
+        name: groupId
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: group id parameter
+        explode: true
+        in: query
+        name: help
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GroupRequest'
+        description: Information about a new group in the system
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/listGroup'
+          description: Expected response to a valid request
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: unexpected error
+      x-content-type: application/json
+      x-accepts: application/json
+components:
+  schemas:
+    listGroup:
+      example:
+        groupName: groupName
+        groupOwner: groupOwner
+        groupId: 0
+        members: members
+        errorMessage: errorMessage
+        status: 6
+        groupMessage: groupMessage
+      properties:
+        groupName:
+          type: string
+        groupId:
+          type: integer
+        members:
+          type: string
+        groupOwner:
+          type: string
+        status:
+          type: integer
+        groupMessage:
+          type: string
+        errorMessage:
+          type: string
+      required:
+      - groupMessage
+      - groupName
+      - groupOwner
+      - ownerId
+      - status
+    Group:
+      properties:
+        groupName:
+          type: string
+        groupId:
+          type: integer
+      required:
+      - groupName
+    GroupRequest:
+      example:
+        groupOwner: groupOwner
+        created: created
+        name: name
+        id: 6
+        ownerId: ownerId
+        updated: updated
+        groupMessage: groupMessage
+        status: 0
+      properties:
+        groupMessage:
+          type: string
+        name:
+          type: string
+        groupOwner:
+          type: string
+        ownerId:
+          type: string
+        status:
+          type: integer
+        id:
+          type: integer
+        created:
+          type: string
+        updated:
+          type: string
+      required:
+      - groupMessage
+      - groupName
+      - groupOwner
+      - ownerId
+    GroupResponse:
+      example:
+        groupName: groupName
+        groupOwner: groupOwner
+        created: created
+        id: 6
+        updated: updated
+        groupMessage: groupMessage
+        status: 0
+      properties:
+        groupMessage:
+          type: string
+        groupName:
+          type: string
+        groupOwner:
+          type: string
+        status:
+          type: integer
+        id:
+          type: integer
+        created:
+          type: string
+        updated:
+          type: string
+      required:
+      - groupMessage
+      - groupName
+      - groupOwner
+      - id
+    Error:
+      properties:
+        code:
+          format: int32
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object

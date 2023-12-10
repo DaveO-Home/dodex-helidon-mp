@@ -1,0 +1,5 @@
+RewriteEngine On
+AuthType Basic
+AuthName "Login"
+AuthUserFile ../application.yaml
+require user logout

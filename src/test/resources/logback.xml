@@ -1,0 +1,47 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com.zaxxer.hikari" level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+</configuration>
+
+<!--<configuration>-->
+<!--    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>./logs/stuff.log</file>-->
+<!--        <append>true</append>-->
+<!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+<!--            <Pattern>[%d{dd-MMM-yyyy HH:mm:ss.SSS}] [%logger] [%-5level] - %msg%n</Pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <appender name="HIKARI" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>./logs/hikari.log</file>-->
+<!--        <append>true</append>-->
+<!--        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">-->
+<!--            <Pattern>[%d{dd-MMM-yyyy HH:mm:ss.SSS}] [%logger] [%-5level] - %msg%n</Pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <logger name="com.zaxxer.hikari" level="WARN" additivity="false">-->
+<!--        <appender-ref ref="STDOUT"/>-->
+<!--    </logger>-->
+
+<!--    <root level="ALL">-->
+<!--        <appender-ref ref="FILE"/>-->
+<!--    </root>-->
+<!--</configuration>-->

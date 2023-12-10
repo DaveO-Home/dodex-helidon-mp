@@ -1,0 +1,4 @@
+{
+    "application": "Dodex",
+    "defaultdb": "h2"
+}
