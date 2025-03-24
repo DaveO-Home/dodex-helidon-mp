@@ -63,7 +63,7 @@ public abstract class WebSocketEndpointBase {
 
   protected void doConnection(Session session) {
     final MessageUser messageUser = setMessageUser(session);
-
+    session.setMaxIdleTimeout(3600000);
     if (!isSetupDone) {
       isSetupDone = true;
     }
@@ -190,10 +190,6 @@ public abstract class WebSocketEndpointBase {
 
   protected void setup() throws InterruptedException, IOException, SQLException {
     dodexDatabase = DbConfiguration.getDefaultDb();
-    dodexDatabase.entityManagerSetup();
-    dodexDatabase.databaseSetup();
-    dodexDatabase.configDatabase();
-
     /*
      * Optional auto user cleanup - config in "application-conf.json". When client
      * changes handle when server is down, old users and undelivered messages will
@@ -242,4 +238,43 @@ public abstract class WebSocketEndpointBase {
         : startupMessage;
     logger.info("Starting Web Socket...{} -- {}", startupMessage, DodexUtil.getEnv());
   }
+/*
+ ClientManager client = ClientManager.createClient();
+ClientManager.ReconnectHandler reconnectHandler = new ClientManager.ReconnectHandler() {
+
+  private int counter = 0;
+
+  @Override
+  public boolean onDisconnect(CloseReason closeReason) {
+    counter++;
+    if (counter <= 3) {
+      System.out.println("### Reconnecting... (reconnect count: " + counter + ")");
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public boolean onConnectFailure(Exception exception) {
+    counter++;
+    if (counter <= 3) {
+      System.out.println("### Reconnecting... (reconnect count: " + counter + ") " + exception.getMessage());
+
+      // Thread.sleep(...) or something other "sleep-like" expression can be put here - you might want
+      // to do it here to avoid potential DDoS when you don't limit number of reconnects.
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  @Override
+  public long getDelay() {
+    return 1;
+  }
+};
+
+client.getProperties().put(ClientProperties.RECONNECT_HANDLER, reconnectHandler);
+*/
 }

@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+rm ./logs/logfile.log
+envoy32 --log-path ./logs/logfile.log --base-id 3  -l info -c ./handicap/handicap.yaml

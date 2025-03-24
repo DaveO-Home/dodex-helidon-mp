@@ -1,7 +1,16 @@
-#server:
-#  port: 8060
-#  host: "localhost"
+server:
+  idle-connection-timeout: PT30M
+  port: 8060
+#  host: "0.0.0.0"
+  features:
+    observe:
+      observers:
+        health:
+          details: true
 #  sockets:
+#    - name: "grpc"
+#      port: 8061
+#      bind-address: "localhost"
 #    - name: "private"
 #      port: 8061
 #    - name: "admin"
@@ -32,31 +41,10 @@ security:
         authenticate: false
       - path: "/addGroup[/{*}]"
         authenticate: true
-#idle-connection-timeout: PT30M
-#websocket:
-#  idle-connection-timeout: PT30M
-javax:
-  sql:
-    DataSource:
-      dsdb2dev:
-        dataSourceClassName: com.ibm.db2.jcc.DB2SimpleDataSource
-        dataSource:
-          user: db2inst1
-          password: dodex
-          databaseName: testdb
-          serverName: localhost
-          portNumber: 50000
-          currentSchema: DB2INST1
-          driverType: 4
-          progressiveStreaming: 2 # set to 1 to use
-      dsdb2prod:
-        dataSourceClassName: com.ibm.db2.jcc.DB2SimpleDataSource
-        dataSource:
-          user: db2inst1
-          password: dodex
-          databaseName: dodex
-          serverName: localhost
-          portNumber: 50000
-          currentSchema: DB2INST1
-          driverType: 4
-          progressiveStreaming: 2
+health:
+  routing: "admin"
+port: 8061
+
+handicap:
+  enable.admin: false
+  admin.pin: "hand!cap"

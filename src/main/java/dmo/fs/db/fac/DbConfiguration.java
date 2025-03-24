@@ -1,6 +1,13 @@
 package dmo.fs.db.fac;
 
 import dmo.fs.db.*;
+import dmo.fs.db.db2.DodexDatabaseIbmDB2;
+import dmo.fs.db.h2.DodexDatabaseH2;
+import dmo.fs.db.mariadb.DodexDatabaseMariadb;
+import dmo.fs.db.mssql.DodexDatabaseMssql;
+import dmo.fs.db.ora.DodexDatabaseOracle;
+import dmo.fs.db.postgres.DodexDatabasePostgres;
+import dmo.fs.util.ColorUtilConstants;
 import dmo.fs.util.DodexUtil;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.spi.CDI;
@@ -16,10 +23,8 @@ import java.util.concurrent.ConcurrentHashMap;
 @ApplicationScoped
 public abstract class DbConfiguration {
     private final static Logger logger = LogManager.getLogger(DbConfiguration.class.getName());
-  /*
-    Change to "<current database>prod for production, eg "postgresprod" or "mariadbprod" etc
-   */
-    public final static String pu = "h2dev";
+
+    public final static String pu = "h2.dev";
 
     private static final Map<String, String> map = new ConcurrentHashMap<>();
     protected static Properties properties = new Properties();
@@ -67,11 +72,19 @@ public abstract class DbConfiguration {
         return isUsingIbmDB2;
     }
 
+    public DbConfiguration() {
+    }
 
     @SuppressWarnings("unchecked")
     public static <T> T getDefaultDb() throws InterruptedException, IOException, SQLException {
-//        defaultDb = dodexUtil.getDefaultDb().toLowerCase();
-        defaultDb = parseDatabaseName();
+        defaultDb = dodexUtil.getDefaultDb().toLowerCase();
+        String mode = DodexUtil.getMode();
+        String dev = "dev";
+
+        if(dodexDatabase == null) {
+            logger.info("{}Using Database: {}.{}{}", ColorUtilConstants.BLUE_BRIGHT, defaultDb, mode, ColorUtilConstants.RESET);
+        }
+
         try {
             if (defaultDb.equals(DbTypes.H2.db) || defaultDb.equals(DbTypes.DEFAULT.db)) {
                 dodexDatabase = CDI.current().select(DodexDatabaseH2.class).get();
@@ -97,9 +110,6 @@ public abstract class DbConfiguration {
         }
 
         return (T) dodexDatabase;
-    }
-    private static String parseDatabaseName() {
-        return DbConfiguration.pu.replaceFirst("(dev|prod)$", "");
     }
 
     public static String getDb() {

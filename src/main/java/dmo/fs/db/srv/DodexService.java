@@ -23,7 +23,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-public abstract class DodexService {
+public class DodexService {
     private final static Logger logger = LogManager.getLogger(DodexService.class.getName());
 
     private static EntityManager entityManager;
@@ -131,7 +131,6 @@ public abstract class DodexService {
     public MessageUser selectUser(MessageUser messageUser, Session ws)
         throws IOException {
         EntityManager em = entityManager.getEntityManagerFactory().createEntityManager(); // get a connection
-
         messageUser.setEntityManager(em);
 
         try {

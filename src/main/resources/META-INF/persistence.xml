@@ -4,14 +4,9 @@
              xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_1.xsd"
              version="3.1">
 
-    <persistence-unit name="mariadbdev" transaction-type="JTA">
+    <persistence-unit name="mariadb.dev" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsmariadbdev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
@@ -19,17 +14,53 @@
             <property name="dbname" value="test"/>
             <property name="mode" value="dev"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mariadb://localhost:3306/test?sslMode=disable&amp;useMysqlMetadata=true" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+            <property name="hibernate.highlight_sql" value="false"/>
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="mariadbprod" transaction-type="JTA">
+    <persistence-unit name="mariadb.prod" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsmariadbprod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value="prod"/>
+            <property name="mode" value="dodex"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:mariadb://localhost:3306/dodex?sslMode=disable&amp;useMysqlMetadata=true" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="postgres.dev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
@@ -37,186 +68,241 @@
             <property name="dbname" value="dodex"/>
             <property name="mode" value="dev"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dodex" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="postgresdev" transaction-type="JTA">
+    <persistence-unit name="postgres.prod" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dspostgresdev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
         <properties>
             <property name="dbname" value="dodex"/>
+            <property name="mode" value="prod"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dodex" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="postgresprod" transaction-type="JTA">
+    <persistence-unit name="h2.dev" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dspostgresprod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="mode" value="dev"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:file:./testh2.db;DATABASE_TO_UPPER=FALSE" />
+            <property name="jakarta.persistence.jdbc.user" value="sa" />
+            <property name="jakarta.persistence.jdbc.password" value="sa" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class" value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="h2.prod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="mode" value="prod"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:h2:file:./prodh2.db;DATABASE_TO_UPPER=FALSE" />
+            <property name="jakarta.persistence.jdbc.user" value="sa" />
+            <property name="jakarta.persistence.jdbc.password" value="sa" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class" value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="oracle.dev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="mode" value="dev"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/FREEPDB1" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex2" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="oracle.prod" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
+        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
+        <shared-cache-mode>NONE</shared-cache-mode>
+        <validation-mode>CALLBACK</validation-mode>
+        <properties>
+            <property name="dbname" value=""/>
+            <property name="mode" value="dev"/>
+            <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:oracle:thin:@//localhost:1521/FREEPDB1" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex2" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
+        </properties>
+    </persistence-unit>
+
+    <persistence-unit name="mssql.dev" transaction-type="JTA">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
         <properties>
             <property name="dbname" value="dodex"/>
+            <property name="mode" value="dev"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:sqlserver://localhost:1433;databaseName=dodex;encrypt=false;user=dodex;password=Sqlserver2" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="Sqlserver2" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="h2dev" transaction-type="JTA">
+    <persistence-unit name="mssql.prod" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsh2dev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
-        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <validation-mode>CALLBACK</validation-mode>
-        <properties>
-            <property name="dbname" value=""/>
-            <property name="hibernate.jdbc.batch_size" value="5"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="h2prod" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsh2prod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
-        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <validation-mode>CALLBACK</validation-mode>
-        <properties>
-            <property name="dbname" value=""/>
-            <property name="hibernate.jdbc.batch_size" value="5"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="oracledev" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsoradev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
-        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <validation-mode>CALLBACK</validation-mode>
-        <properties>
-            <property name="dbname" value=""/>
-            <property name="hibernate.jdbc.batch_size" value="5"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="oracleprod" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsoraprod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
-        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <validation-mode>CALLBACK</validation-mode>
-        <properties>
-            <property name="dbname" value=""/>
-            <property name="hibernate.jdbc.batch_size" value="5"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="mssqldev" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsmssqldev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
         <properties>
             <property name="dbname" value="dodex"/>
+            <property name="mode" value="prod"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider"
+                      value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:sqlserver://localhost:1433;databaseName=dodex;encrypt=false;user=dodex;password=Sqlserver2" />
+            <property name="jakarta.persistence.jdbc.user" value="dodex" />
+            <property name="jakarta.persistence.jdbc.password" value="Sqlserver2" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="mssqlprod" transaction-type="JTA">
+    <persistence-unit name="ibmdb2.dev" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsmssqlprod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
-        <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
-        <shared-cache-mode>NONE</shared-cache-mode>
-        <validation-mode>CALLBACK</validation-mode>
-        <properties>
-            <property name="dbname" value="dodex"/>
-            <property name="hibernate.jdbc.batch_size" value="5"/>
-        </properties>
-    </persistence-unit>
-
-    <persistence-unit name="ibmdb2dev" transaction-type="JTA">
-        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsdb2dev</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
         <properties>
             <property name="dbname" value="testdb"/>
+            <property name="mode" value="dev"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider" value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:db2://localhost:50000/testdb:driverType=4;progressiveStreaming=2;" />
+            <property name="jakarta.persistence.jdbc.user" value="db2inst1" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
         </properties>
     </persistence-unit>
 
-    <persistence-unit name="ibmdb2prod" transaction-type="JTA">
+    <persistence-unit name="ibmdb2.prod" transaction-type="JTA">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>dsdb2prod</jta-data-source>
-        <class>dmo.fs.entities.Undelivered</class>
-        <class>dmo.fs.entities.Message</class>
-        <class>dmo.fs.entities.User</class>
-        <class>dmo.fs.entities.Group</class>
-        <class>dmo.fs.entities.Member</class>
+        <mapping-file>/META-INF/dodex.xml</mapping-file>
         <!-- NONE ENABLE_SELECTIVE DISABLE_SELECTIVE -->
         <shared-cache-mode>NONE</shared-cache-mode>
         <validation-mode>CALLBACK</validation-mode>
         <properties>
             <property name="dbname" value="dodex"/>
+            <property name="mode" value="prod"/>
             <property name="hibernate.jdbc.batch_size" value="5"/>
+
+            <property name="javax.persistence.provider" value="org.hibernate.jpa.HibernatePersistenceProvider" />
+            <property name="jakarta.persistence.jdbc.url"
+                      value="jdbc:db2://localhost:50000/testdb:driverType=4;progressiveStreaming=2;" />
+            <property name="jakarta.persistence.jdbc.user" value="db2inst1" />
+            <property name="jakarta.persistence.jdbc.password" value="dodex" />
+            <property name="hibernate.hikari.minimumIdle" value="5" />
+            <property name="hibernate.hikari.maximumPoolSize" value="10" />
+            <property name="hibernate.hikari.idleTimeout" value="30000" />
+            <property name="hibernate.connection.provider_class"
+                      value="com.zaxxer.hikari.hibernate.HikariConnectionProvider" />
         </properties>
     </persistence-unit>
-
-
-
-    <!--      <property name="hibernate.show_sql" value="true"/>-->
-    <!--      <property name="hibernate.format_sql" value="true"/>-->
-    <!--      <property name="hibernate.highlight_sql" value="true"/>-->
-
+</persistence>
     <!--      <property name="hibernate.hbm2ddl.auto" value="create-drop"/>-->
     <!--      <property name="hibernate.hbm2ddl.auto" value="create"/>-->
     <!--      <property name="jakarta.persistence.sql-load-script-source" value="META-INF/init_script.sql"/>-->
-</persistence>

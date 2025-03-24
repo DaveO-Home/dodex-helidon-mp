@@ -113,7 +113,7 @@ public class DodexUtil {
         }
     }
 
-    public JsonNode getDefaultNode() throws IOException {
+    public void getDefaultNode() throws IOException {
         ObjectMapper jsonMapper = new ObjectMapper();
         JsonNode node;
 
@@ -127,8 +127,6 @@ public class DodexUtil {
 
         /* use environment variable first, if set, than properties and then from config json */
         defaultDb = defaultdbEnv != null ? defaultdbEnv : defaultdbProp != null ? defaultdbProp : defaultDb;
-
-        return node.get(defaultDb);
     }
 
     public String getDefaultDb() throws IOException {
@@ -178,15 +176,17 @@ public class DodexUtil {
 
     public static String getMode() {
         String development = System.getenv("MODE");
-
+        if(development == null || development.isEmpty()) {
+            development = System.getProperty("MODE");
+        }
         if (development != null && development.toLowerCase().startsWith("prod")) {
             return "prod";
         }
-
         if(development == null || development.isEmpty()) {
-            return DbConfiguration.pu.replaceFirst("^.*[^(prod|dev)$]", "");
-        }
-        return development;
+           return DbConfiguration.pu.replaceFirst("^.*[^(prod|dev)$]", "");
+       }
+
+       return development;
     }
 
 

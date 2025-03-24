@@ -1,5 +1,10 @@
+*.sql
+dist
+prodh2*
+gjson/
 hs_err_pid*
 target/
+logs/*
 deploy
 .DS_Store
 .idea/
@@ -16,6 +21,7 @@ nb-configuration.xml
 *.swp
 *~
 build/
+gradle/
 .gradle/
 node_modules
 testh2*

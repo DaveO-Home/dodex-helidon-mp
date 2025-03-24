@@ -1,6 +1,5 @@
 package dmo.fs.routes;
 
-import dmo.fs.server.DodexMain;
 import dmo.fs.util.DodexServerEndpointConfigurator;
 import dmo.fs.util.DodexUtil;
 import io.helidon.security.Security;
@@ -45,7 +44,7 @@ public class WebSocketEndpoint extends WebSocketEndpointBase implements Serializ
     @OnOpen
     public void onOpen(Session session) throws InterruptedException, IOException, SQLException {
         sessions.put(session.getId(), session);
-        session.setMaxIdleTimeout(1000*60*30);
+        session.setMaxIdleTimeout(1000 * 60 * 30);
 
         setup();
 

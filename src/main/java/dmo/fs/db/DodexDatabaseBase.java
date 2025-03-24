@@ -2,7 +2,6 @@ package dmo.fs.db;
 
 import dmo.fs.db.bld.Database;
 import dmo.fs.db.bld.DatabaseBuild;
-import dmo.fs.db.fac.DbConfiguration;
 import dmo.fs.db.srv.DodexService;
 import dmo.fs.util.DodexUtil;
 import dmo.fs.util.MessageUser;
@@ -20,9 +19,9 @@ public abstract class DodexDatabaseBase extends DodexService implements DodexDat
     @Serial
     private static final long serialVersionUID = 1L;
     private final static Logger logger =
-        LogManager.getLogger(DodexDatabaseBase.class.getName());
+      LogManager.getLogger(DodexDatabaseBase.class.getName());
 
-    static EntityManager entityManager;
+    protected static EntityManager entityManager;
     static protected String dbName;
     protected String persistenceUnitName;
 
@@ -34,17 +33,17 @@ public abstract class DodexDatabaseBase extends DodexService implements DodexDat
     public void databaseSetup() throws InterruptedException {
 
         persistenceUnitName =
-            entityManager.getEntityManagerFactory().getProperties().get("hibernate.persistenceUnitName").toString();
-
+          entityManager.getEntityManagerFactory().getProperties().get("hibernate.persistenceUnitName").toString();
 
         Database database = new Database.DatabaseBuilder(
-            DodexUtil.getMode(), dbName, persistenceUnitName).build();
+          DodexUtil.getMode(), dbName, persistenceUnitName).build();
 
         databaseBuild = database.getDatabaseBuild();
+
         if (databaseBuild == null) {
             throw new InterruptedException("DatabaseBuild is null: Is the Persistence Unit set properly in " +
-                "'DbConfiguration.java'? mode/dbName/pu " +
-                DodexUtil.getMode() + " -- " + dbName + " -- " + persistenceUnitName + " -- " + database);
+              "'DbConfiguration.java'? mode/dbName/pu " +
+              DodexUtil.getMode() + " -- " + dbName + " -- " + persistenceUnitName + " -- " + database);
         }
     }
 

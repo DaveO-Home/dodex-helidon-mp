@@ -64,7 +64,7 @@ public class GroupService implements Serializable {
 
     protected static boolean qmark = true;
     protected final static DateTimeFormatter formatter =
-        DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
+      DateTimeFormatter.ISO_INSTANT.withZone(ZoneId.systemDefault());
     ZoneId zoneId = ZoneId.of("Europe/London");
 
     private final static EntityManager entityManager = dodexDatabase.getEntityManager();
@@ -100,13 +100,13 @@ public class GroupService implements Serializable {
         criteriaQuery.where(builder.equal(groupRoot.get(Group_.ID), group.getId()));
 
         return entityManager
-            .createQuery(criteriaQuery.select(members))
-            .getResultList();
+          .createQuery(criteriaQuery.select(members))
+          .getResultList();
     }
 
     public JsonObject addGroupAndMembers(JsonObject addGroupJson)
-        throws IOException {
-        if(dodexDatabase.getEntityManager() == null) {
+      throws IOException {
+        if (dodexDatabase.getEntityManager() == null) {
             return addGroupJson;
         }
         EntityManager em = dodexDatabase.getEntityManager().getEntityManagerFactory().createEntityManager();
@@ -118,15 +118,15 @@ public class GroupService implements Serializable {
 
         String entry0 = selectedUsers.get(0);
         if (addGroupJson.getInt("status") == 0 &&
-            entry0 != null && !entry0.isEmpty()) {
+          entry0 != null && !entry0.isEmpty()) {
             try {
                 addGroupJson = addMembers(em, selectedUsers, addGroupJson);
             } catch (SQLException | InterruptedException | IOException err) {
                 err.printStackTrace();
                 addGroupJson = Json.createBuilderFactory(Map.of())
-                    .createObjectBuilder(addGroupJson)
-                    .add("status", -1)
-                    .add("errorMessage", err.getMessage()).build();
+                  .createObjectBuilder(addGroupJson)
+                  .add("status", -1)
+                  .add("errorMessage", err.getMessage()).build();
             }
         }
 
@@ -136,7 +136,7 @@ public class GroupService implements Serializable {
 
     @Transactional
     protected JsonObject addGroup(JsonObject addGroupJson, EntityManager em)
-        throws IOException {
+      throws IOException {
         Timestamp current = new Timestamp(new Date().getTime());
         OffsetDateTime time = OffsetDateTime.now();
         Object currentDate = DbConfiguration.isUsingPostgres() ? time : current;
@@ -152,11 +152,11 @@ public class GroupService implements Serializable {
             Group group = getGroupByName(addGroupJson.getString("groupName"), em);
             if (group.getId() != 0) {
                 addGroupJson = Json.createBuilderFactory(Map.of())
-                    .createObjectBuilder(addGroupJson)
-                    .add("ownerKey", messageUserSelected.getId())
-                    .add("id", group.getId())
-                    .add("status", 0)
-                    .add("errorMessage", "").build();
+                  .createObjectBuilder(addGroupJson)
+                  .add("ownerKey", messageUserSelected.getId())
+                  .add("id", group.getId())
+                  .add("status", 0)
+                  .add("errorMessage", "").build();
             }
         } catch (NoResultException nre) {
             Group newGroup = new Group();
@@ -175,13 +175,13 @@ public class GroupService implements Serializable {
             String openApiDate = zonedDateTime.format(formatter);
 
             addGroupJson = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(addGroupJson)
-                .add("ownerKey", messageUserSelected.getId())
-                .add("id", newGroup.getId())
-                .add("status", 0)
-                .add("created", openApiDate)
-                .add("groupMessage", "Group added.")
-                .add("errorMessage", "Group added.").build();
+              .createObjectBuilder(addGroupJson)
+              .add("ownerKey", messageUserSelected.getId())
+              .add("id", newGroup.getId())
+              .add("status", 0)
+              .add("created", openApiDate)
+              .add("groupMessage", "Group added.")
+              .add("errorMessage", "Group added.").build();
         }
 
         return addGroupJson;
@@ -189,7 +189,7 @@ public class GroupService implements Serializable {
 
     @Transactional
     protected JsonObject addMembers(EntityManager em, List<String> selectedUsers, JsonObject addGroupJson)
-        throws InterruptedException, SQLException, IOException {
+      throws InterruptedException, SQLException, IOException {
 
         Group group = em.find(Group.class, addGroupJson.getInt("id"));
         JsonObject checkedJson = checkOnGroupOwner(addGroupJson, em);
@@ -219,17 +219,16 @@ public class GroupService implements Serializable {
             }
         } else {
             JsonObjectBuilder builder = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(checkedJson);
+              .createObjectBuilder(checkedJson);
             addGroupJson = builder.build();
         }
 
         return addGroupJson;
     }
 
-    //
     public JsonObject deleteGroupOrMembers(JsonObject deleteGroupJson)
-        throws InterruptedException, SQLException, IOException {
-        if(dodexDatabase.getEntityManager() == null) {
+      throws InterruptedException, SQLException, IOException {
+        if (dodexDatabase.getEntityManager() == null) {
             return deleteGroupJson;
         }
         EntityManager em = dodexDatabase.getEntityManager().getEntityManagerFactory().createEntityManager();
@@ -267,7 +266,7 @@ public class GroupService implements Serializable {
 
     @Transactional
     protected JsonObject deleteGroup(JsonObject deleteGroupJson, EntityManager em)
-        throws InterruptedException, SQLException, IOException {
+      throws InterruptedException, SQLException, IOException {
 
         JsonObject checkedJson = checkOnGroupOwner(deleteGroupJson, em);
         if (checkedJson.getBoolean("isValidForOperation")) {
@@ -294,15 +293,15 @@ public class GroupService implements Serializable {
                 deleteMessage = "Group " + group.getName() + " deleted.";
             }
             JsonObjectBuilder builder = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(deleteGroupJson)
-                .add("errorMessage", deleteMessage);
+              .createObjectBuilder(deleteGroupJson)
+              .add("errorMessage", deleteMessage);
             deleteGroupJson = builder.build();
         } else {
             JsonObjectBuilder builder = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(deleteGroupJson);
+              .createObjectBuilder(deleteGroupJson);
             builder
-                .add("isValidForOperation", checkedJson.getBoolean("isValidForOperation"))
-                .add("errorMessage", "Contact owner for group administration");
+              .add("isValidForOperation", checkedJson.getBoolean("isValidForOperation"))
+              .add("errorMessage", "Contact owner for group administration");
 
             deleteGroupJson = builder.build();
         }
@@ -310,15 +309,14 @@ public class GroupService implements Serializable {
         return deleteGroupJson;
     }
 
-    //
     @Transactional
     protected JsonObject deleteMembers(List<String> selectedUsers, JsonObject deleteGroupJson, EntityManager em)
-        throws InterruptedException, SQLException, IOException {
+      throws InterruptedException, SQLException, IOException {
         JsonObject checkedJson = checkOnGroupOwner(deleteGroupJson, em);
         if (checkedJson.getBoolean("isValidForOperation")) {
             Group group = getGroupByName(deleteGroupJson.getString("groupName"), em);
             deleteGroupJson = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(deleteGroupJson).add("id", group.getId()).build();
+              .createObjectBuilder(deleteGroupJson).add("id", group.getId()).build();
 
             em.getTransaction().begin();
 
@@ -326,7 +324,7 @@ public class GroupService implements Serializable {
                 for (User user : group.getUsers()) {
                     if (selectedUsers.contains(user.getName())) {
                         if (user.getId() == member.getMemberId().getUser_id() &&
-                            group.getId() == member.getMemberId().getGroup_id()) {
+                          group.getId() == member.getMemberId().getGroup_id()) {
                             em.remove(member);
                         }
                     }
@@ -334,14 +332,14 @@ public class GroupService implements Serializable {
             }
             em.getTransaction().commit();
             deleteGroupJson = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(deleteGroupJson).add("groupMessage", "Group member(s) removed")
-                    .add("errorMessage", "Removed").build();
+              .createObjectBuilder(deleteGroupJson).add("groupMessage", "Group member(s) removed")
+              .add("errorMessage", "Removed").build();
         } else {
             JsonObjectBuilder builder = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(deleteGroupJson);
+              .createObjectBuilder(deleteGroupJson);
             builder
-                .add("isValidForOperation", checkedJson.getBoolean("isValidForOperation"))
-                .add("errorMessage", "Contact owner for group administration");
+              .add("isValidForOperation", checkedJson.getBoolean("isValidForOperation"))
+              .add("errorMessage", "Contact owner for group administration");
             deleteGroupJson = builder.build();
         }
 
@@ -349,8 +347,8 @@ public class GroupService implements Serializable {
     }
 
     public JsonObject getMembersList(JsonObject getGroupJson)
-        throws InterruptedException, SQLException, IOException {
-        if(dodexDatabase.getEntityManager() == null) {
+      throws InterruptedException, SQLException, IOException {
+        if (dodexDatabase.getEntityManager() == null) {
             return getGroupJson;
         }
         EntityManager em = dodexDatabase.getEntityManager().getEntityManagerFactory().createEntityManager();
@@ -379,18 +377,18 @@ public class GroupService implements Serializable {
                     }
                 }
                 getGroupJson = builder
-                    .add("members", membersBuilder.build().toString())
-                    .add("errorMessage", "")
-                    .add("id", group.getId()).build();
+                  .add("members", membersBuilder.build().toString())
+                  .add("errorMessage", "")
+                  .add("id", group.getId()).build();
             } else {
                 getGroupJson = builder
-                    .add("errorMessage", "Group not found: " + getGroupJson.getString("groupName"))
-                    .add("id", 0).build();
+                  .add("errorMessage", "Group not found: " + getGroupJson.getString("groupName"))
+                  .add("id", 0).build();
             }
         } catch (NoResultException nre) {
             getGroupJson = builder
-                .add("errorMessage", nre.getMessage())
-                .add("groupMessage", "").build();
+              .add("errorMessage", nre.getMessage())
+              .add("groupMessage", "").build();
         }
         return getGroupJson;
     }
@@ -399,28 +397,28 @@ public class GroupService implements Serializable {
         Group group = getGroupByName(groupJson.getString("groupName"), em);
         User user = getUserByName(groupJson.getString("groupOwner"), em);
         JsonObjectBuilder builder = Json.createBuilderFactory(Map.of())
-            .createObjectBuilder(groupJson);
+          .createObjectBuilder(groupJson);
         builder.add("isValidForOperation", false);
 
         if (group.getId() != 0) {
             groupJson = builder.add("id", group.getId())
-                .add("ownerKey", group.getOwner()).build();
+              .add("ownerKey", group.getOwner()).build();
         }
 
         JsonObject checkGroupJson = builder
-            .add("checkGroupOwnerId", user.getId())
-            .add("checkGroupOwner", user.getName())
-            .add("checkForOwner", isCheckForOwner != null && isCheckForOwner)
-            .add("isValidForOperation", groupJson.getInt("status") != -1 &&
-                !isCheckForOwner || user.getId() == groupJson.getInt("ownerKey"))
-            .build();
+          .add("checkGroupOwnerId", user.getId())
+          .add("checkGroupOwner", user.getName())
+          .add("checkForOwner", isCheckForOwner != null && isCheckForOwner)
+          .add("isValidForOperation", groupJson.getInt("status") != -1 &&
+            !isCheckForOwner || user.getId() == groupJson.getInt("ownerKey"))
+          .build();
         builder = Json.createBuilderFactory(Map.of())
-            .createObjectBuilder(groupJson);
+          .createObjectBuilder(groupJson);
 
         builder
-            .add("isValidForOperation", securityContext.isAuthenticated() ? securityContext.isAuthenticated() : checkGroupJson.getBoolean("isValidForOperation"))
-            .add("errorMessage", !checkGroupJson.getBoolean("isValidForOperation") ?
-                "Contact owner for group administration" : "");
+          .add("isValidForOperation", securityContext.isAuthenticated() ? securityContext.isAuthenticated() : checkGroupJson.getBoolean("isValidForOperation"))
+          .add("errorMessage", !checkGroupJson.getBoolean("isValidForOperation") ?
+            "Contact owner for group administration" : "");
 
         groupJson = builder.build();
 
@@ -449,11 +447,11 @@ public class GroupService implements Serializable {
     protected JsonObject errData(Throwable err, JsonObject groupJson) {
         if (err != null && err.getMessage() != null) {
             groupJson = Json.createBuilderFactory(Map.of())
-                .createObjectBuilder(groupJson)
-                .add("status", -1)
-                .add("errorMessage", !err.getMessage().contains("batch execution") ?
-                    err.getMessage() : err.getMessage() + " -- some actions may have succeeded.")
-                .build();
+              .createObjectBuilder(groupJson)
+              .add("status", -1)
+              .add("errorMessage", !err.getMessage().contains("batch execution") ?
+                err.getMessage() : err.getMessage() + " -- some actions may have succeeded.")
+              .build();
             if (!err.getMessage().contains("batch execution")) {
                 err.printStackTrace();
             } else {

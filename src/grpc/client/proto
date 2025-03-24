@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+if [ -z $1 ]; then
+  echo "Enter proto file, e.g.; protos/handicap"
+  exit 1
+fi
+npx protoc -I=. ${1}.proto \
+  --js_out=import_style=commonjs,binary:./js/handicap \
+  --grpc-web_out=import_style=commonjs,mode=grpcwebtext:./js/handicap
+
+# npx protoc-gen-grpc --proto_path ./protos handicap.proto --js_out=js/handicap

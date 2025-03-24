@@ -2,6 +2,8 @@ package dmo.fs.db;
 
 import dmo.fs.db.bld.DatabaseBuild;
 import dmo.fs.util.MessageUser;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.websocket.Session;
 
 import java.io.IOException;
@@ -16,6 +18,7 @@ public interface DodexDatabase {
 	void databaseSetup() throws InterruptedException;
 	void configDatabase() throws InterruptedException;
 	void entityManagerSetup();
+	void entityManagerSetup(EntityManagerFactory emf);
 
 	Long deleteUser(Session ws, MessageUser messageUser)
 			throws SQLException, InterruptedException;
@@ -36,4 +39,8 @@ public interface DodexDatabase {
 
 	String buildUsersJson(MessageUser messageUser)
 			throws Exception;
+
+	EntityManager getEntityManager();
+
+	EntityManagerFactory getEmf();
 }
