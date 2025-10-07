@@ -1,5 +1,15 @@
 # Changelog
 
+## [v4.0.0](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2025-10-06)
+
+[Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v2.0.0..v4.0.0)
+
+* Upgraded to Helidon MP 4.3.0
+* Upgraded javascript dependencies
+* Upgraded to Gradle 9.1.0
+* Added mvnw
+* Fixed mssql table creation syntax
+
 ## [v2.0.0](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2025-03-24)
 
 [Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v1.0.0..v2.0.0)

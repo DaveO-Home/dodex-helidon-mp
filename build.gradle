@@ -19,11 +19,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     id 'java'
-    id 'org.kordamp.gradle.jandex' version '2.0.0'
-    id "com.google.protobuf" version "0.9.4"
-    id "org.jetbrains.kotlin.jvm" version "2.1.10"
-    id "org.jetbrains.kotlin.plugin.allopen" version "2.1.10"
-    id "org.jetbrains.kotlin.plugin.jpa" version "2.1.0-Beta2"
+    id 'org.kordamp.gradle.jandex' version '2.2.0'
+    id "com.google.protobuf" version "0.9.5"
+    id "org.jetbrains.kotlin.jvm" version "2.2.20-RC"
+    id "org.jetbrains.kotlin.plugin.allopen" version "2.2.20"
+    id "org.jetbrains.kotlin.plugin.jpa" version "2.2.20"
     id 'application'
     id "pmd"
 }
@@ -32,9 +32,9 @@ allOpen {
     annotation("jakarta.persistence.Entity")
 }
 
-version = '1.0.0'
+version = '2.0.0'
 jandex {
-    version = '3.2.2'
+    version = '3.5.0'
 }
 
 allOpen {
@@ -43,7 +43,7 @@ allOpen {
 
 def debug = ""
 def cache = "--java-opts=-D"
-def grpcVersion = '1.68.1'
+def grpcVersion = '1.75.0'
 
 description = """dodex-helidon-mp"""
 
@@ -52,7 +52,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 ext {
-    helidonversion = "4.2.0"
+    helidonversion = "4.3.0"
     mainClass = "dmo.fs.server.DodexMain"
 }
 
@@ -73,15 +73,15 @@ dependencies {
     implementation group: 'io.helidon.webserver', name: 'helidon-webserver', version: "${project.helidonversion}"
     implementation "jakarta.json.bind:jakarta.json.bind-api"
     implementation "org.glassfish.jersey.media:jersey-media-json-binding"
-    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.18.2"
+    implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0"
     implementation "io.helidon.microprofile.websocket:helidon-microprofile-websocket:${project.helidonversion}"
 
-    annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:6.5.2.Final")
+    annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.1.2.Final")
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-hibernate:${project.helidonversion}"
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-datasource-hikaricp:${project.helidonversion}"
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-jta-weld:${project.helidonversion}"
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-jpa:${project.helidonversion}"
-    implementation "org.hibernate.validator:hibernate-validator:8.0.2.Final"
+    implementation "org.hibernate.validator:hibernate-validator:8.0.3.Final"
     implementation "jakarta.annotation:jakarta.annotation-api"
     implementation "jakarta.enterprise:jakarta.enterprise.cdi-api"
     implementation "jakarta.inject:jakarta.inject-api"
@@ -92,12 +92,12 @@ dependencies {
     implementation "org.glassfish:jakarta.el"
     runtimeOnly "jakarta.activation:jakarta.activation-api"
 
-    implementation 'com.h2database:h2:2.3.232'
-    implementation 'org.postgresql:postgresql:42.7.5'
-    implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.2'
-    implementation "com.oracle.database.jdbc:ojdbc11:23.7.0.25.01"
-    implementation "com.microsoft.sqlserver:mssql-jdbc:12.8.1.jre11"
-    implementation group: "com.ibm.db2", name: "jcc", version: "12.1.0.0"
+    implementation 'com.h2database:h2:2.4.240'
+    implementation 'org.postgresql:postgresql:42.7.8'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:3.5.6'
+    implementation "com.oracle.database.jdbc:ojdbc11:23.8.0.25.07"
+    implementation "com.microsoft.sqlserver:mssql-jdbc:12.10.1.jre11"
+    implementation group: "com.ibm.db2", name: "jcc", version: "12.1.2.0"
 
     implementation "io.helidon.common:helidon-common:${project.helidonversion}"
 
@@ -105,7 +105,7 @@ dependencies {
 
     implementation "io.helidon.microprofile.openapi:helidon-microprofile-openapi:${project.helidonversion}"
     runtimeOnly "io.helidon.integrations.openapi-ui:helidon-integrations-openapi-ui:${project.helidonversion}"
-    runtimeOnly "org.eclipse.microprofile.openapi:microprofile-openapi-api:4.0.2"
+    runtimeOnly "org.eclipse.microprofile.openapi:microprofile-openapi-api:4.1.0"
     runtimeOnly "io.smallrye:smallrye-open-api-ui"
 
     implementation "io.helidon.microprofile:helidon-microprofile-security:${project.helidonversion}"
@@ -125,7 +125,7 @@ dependencies {
 
     implementation "io.helidon.webserver.observe:helidon-webserver-observe-health:${project.helidonversion}"
     implementation "io.helidon.health:helidon-health-checks:${project.helidonversion}"
-    implementation "io.helidon.scheduling:helidon-scheduling:4.0.0-M1"
+    implementation "io.helidon.scheduling:helidon-scheduling:${project.helidonversion}"
 
     implementation "io.helidon.microprofile.grpc:helidon-microprofile-grpc-core:${project.helidonversion}"
     implementation "io.helidon.microprofile.grpc:helidon-microprofile-grpc-server:${project.helidonversion}"
@@ -135,13 +135,13 @@ dependencies {
     implementation "io.helidon.microprofile.grpc:helidon-microprofile-grpc-tracing:${project.helidonversion}"
     implementation "javax.annotation:javax.annotation-api"
 
-    implementation 'org.apache.logging.log4j:log4j-core:2.24.3'
-    implementation 'org.apache.logging.log4j:log4j-api:2.24.3'
-    implementation 'org.slf4j:slf4j-api:2.0.16'
-    implementation 'org.slf4j:slf4j-simple:2.0.16'
+    implementation 'org.apache.logging.log4j:log4j-core:2.25.2'
+    implementation 'org.apache.logging.log4j:log4j-api:2.25.2'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
+//    implementation 'org.slf4j:slf4j-simple:2.0.17'
 
-    implementation "io.helidon.build-tools.devloop:helidon-build-devloop:4.0.15"
-    implementation 'org.jinq:jinq:2.0.2'
+    implementation "io.helidon.build-tools.devloop:helidon-build-devloop:4.0.23"
+    implementation 'org.jinq:jinq:2.0.3'
 
     implementation "org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2"
     implementation "io.helidon.microprofile.metrics:helidon-microprofile-metrics:${project.helidonversion}"
@@ -151,7 +151,7 @@ dependencies {
     testImplementation 'io.helidon.microprofile.tests:helidon-microprofile-tests-junit5:4.0.0-M2'
     testImplementation 'org.junit.jupiter:junit-jupiter-api'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.2")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.13.4")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     testImplementation group: 'io.helidon.webserver.testing.junit5', name: 'helidon-webserver-testing-junit5', version: "${project.helidonversion}" 
     testImplementation group: 'io.helidon.common.testing', name: 'helidon-common-testing-junit5', version: "${project.helidonversion}" 
@@ -169,13 +169,15 @@ run {
         cache = ""
     }
 
+//    environment "DEFAULT_DB", "h2"
+
     mode = environment.get("MODE")
 
     if (mode == null && project.gradle.startParameter.taskNames.contains("run")) {
         mode = "dev"
         environment "MODE", "${mode}"
     }
-    args = ['run', "${mainClass}", debug, cache]
+    args = ['run', "${mainClass}", debug, cache, "--enable-native-access=ALL-UNNAMED", "--sun-misc-unsafe-memory-access=allow"]
 }
 
 test {
@@ -263,14 +265,14 @@ pmdTest {
 compileTestJava.dependsOn "jandex"
 test.dependsOn moveBeansXML
 run.dependsOn "jandex", moveBeansXML
-
+// -Xlint:none
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.25.5'
+        artifact = 'com.google.protobuf:protoc:4.31.1'
     }
     plugins {
         grpc {
-            artifact = "io.grpc:protoc-gen-grpc-java:1.68.1"
+            artifact = "io.grpc:protoc-gen-grpc-java:1.73.0"
         }
     }
     generateProtoTasks.generatedFilesBaseDir = 'build/generated-sources'

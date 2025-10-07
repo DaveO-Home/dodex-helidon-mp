@@ -8,12 +8,13 @@ import io.helidon.config.Config;
 import io.helidon.health.HealthCheck;
 import io.helidon.health.HealthCheckResponse;
 import io.helidon.health.HealthCheckType;
-import io.helidon.scheduling.Scheduling;
+import io.helidon.scheduling.FixedRate;
 import io.helidon.webclient.api.WebClient;
 import io.helidon.webclient.grpc.GrpcClient;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.time.Duration;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -56,13 +57,14 @@ public class HandicapServiceHealthCheck implements HealthCheck {
     public HealthCheckResponse call() {
         if (latch == null) {
             latch = new CountDownLatch(1);
-            Scheduling.fixedRate()          // task to check for readiness
-              .delay(1)
-              .initialDelay(0)
-              .timeUnit(TimeUnit.MINUTES)
+
+            FixedRate.builder()
+              .delayBy(Duration.ofSeconds(1))
+              .interval(Duration.ofSeconds(2))
               .task(i -> checkReadiness())
               .build();
         }
+
         try {
             boolean check = latch.await(5, TimeUnit.SECONDS);
             return HealthCheckResponse.builder()

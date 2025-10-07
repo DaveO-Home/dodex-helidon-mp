@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>4.2.0</version>
+    <version>4.3.0</version>
     <relativePath/>
   </parent>
   <groupId>dodex-helidon</groupId>
@@ -14,16 +14,16 @@
   <version>1.1.0</version>
 
   <properties>
-    <helidon.version>4.2.0</helidon.version>
+    <helidon.version>4.3.0</helidon.version>
     <log4j.version>2.23.1</log4j.version>
-    <slf4j.version>2.0.12</slf4j.version>
-    <kotlin.version>2.1.10</kotlin.version>
+    <slf4j.version>2.0.17</slf4j.version>
+    <kotlin.version>2.2.20</kotlin.version>
     <version.plugin.jar>3.4.2</version.plugin.jar>
     <mainClass>dmo.fs.server.DodexMain</mainClass>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <version.lib.google-protobuf>4.29.3</version.lib.google-protobuf>
-    <version.lib.grpc>1.70.0</version.lib.grpc>
-    <hibernate.version>6.3.1.Final</hibernate.version>
+    <version.lib.google-protobuf>4.32.1</version.lib.google-protobuf>
+    <version.lib.grpc>1.75.0</version.lib.grpc>
+    <hibernate.version>7.1.2.Final</hibernate.version>
   </properties>
 
   <dependencies>
@@ -207,7 +207,7 @@
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
-      <version>2.15.2</version>
+      <version>2.20.0</version>
     </dependency>
     <dependency>
       <groupId>com.fasterxml.jackson.datatype</groupId>
@@ -259,7 +259,7 @@
     <dependency>
       <groupId>io.helidon.common.testing</groupId>
       <artifactId>helidon-common-testing-http-junit5</artifactId>
-      <version>4.0.0</version>
+      <version>4.3.0</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -287,7 +287,7 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>2.3.232</version>
+      <version>2.4.240</version>
     </dependency>
     <dependency>
       <groupId>org.mariadb.jdbc</groupId>
@@ -297,12 +297,12 @@
     <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc11</artifactId>
-      <version>23.3.0.23.09</version>
+      <version>23.9.0.25.07</version>
     </dependency>
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
       <artifactId>mssql-jdbc</artifactId>
-      <version>12.4.2.jre11</version>
+      <version>12.10.1.jre11</version>
     </dependency>
     <dependency>
       <groupId>com.ibm.db2</groupId>
@@ -341,7 +341,7 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <version>5.7.0</version>
+      <version>5.11.4</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
@@ -395,13 +395,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.10.1</version>
+        <version>3.14.1</version>
         <configuration>
           <annotationProcessorPaths>
             <path>
               <groupId>org.hibernate.orm</groupId>
               <artifactId>hibernate-processor</artifactId>
-              <version>7.0.0.Beta4</version>
+              <version>7.1.1.Final</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -409,7 +409,7 @@
           <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-processor</artifactId>
-            <version>7.0.0.Beta3</version>
+            <version>7.1.1.Final</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -575,7 +575,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.1</version>
         <executions>
           <execution>
           </execution>
@@ -595,7 +595,7 @@
       <plugin>
         <groupId>io.helidon.build-tools</groupId>
         <artifactId>helidon-cli-maven-plugin</artifactId>
-        <version>4.0.15</version>
+        <version>4.0.23</version>
         <configuration>
           <devLoop>
             <!-- This section defines behavior for full builds. -->
