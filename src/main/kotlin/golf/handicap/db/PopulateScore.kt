@@ -75,7 +75,7 @@ class PopulateScore : SqlConstants(), IPopulateScore {
                 newScore.golfer = golf.handicap.Golfer()
                 newScore.course = score.course
                 newScore.golfer!!.pin = queryScore.scoresId!!.pin
-                newScore.grossScore = queryScore.grossScore!!.toInt()
+                newScore.grossScore = queryScore.grossScore!!
                 newScore.netScore = queryScore.netScore!!
                 newScore.adjustedScore = queryScore.adjustedScore!!
                 newScore.teeTime = queryScore.teeTime.toString()

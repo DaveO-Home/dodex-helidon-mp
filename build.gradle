@@ -19,11 +19,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 
 plugins {
     id 'java'
-    id 'org.kordamp.gradle.jandex' version '2.2.0'
+    id 'org.kordamp.gradle.jandex' version '2.3.0'
     id "com.google.protobuf" version "0.9.5"
-    id "org.jetbrains.kotlin.jvm" version "2.2.20-RC"
-    id "org.jetbrains.kotlin.plugin.allopen" version "2.2.20"
-    id "org.jetbrains.kotlin.plugin.jpa" version "2.2.20"
+    id "org.jetbrains.kotlin.jvm" version "2.3.20"
+    id "org.jetbrains.kotlin.plugin.allopen" version "2.3.20"
+    id "org.jetbrains.kotlin.plugin.jpa" version "2.3.20"
     id 'application'
     id "pmd"
 }
@@ -32,9 +32,13 @@ allOpen {
     annotation("jakarta.persistence.Entity")
 }
 
-version = '2.0.0'
+application {
+    applicationDefaultJvmArgs = ['--sun-misc-unsafe-memory-access=allow', '--enable-native-access=ALL-UNNAMED']
+}
+
+version = '2.0.1'
 jandex {
-    version = '3.5.0'
+    version = '3.5.3'
 }
 
 allOpen {
@@ -42,7 +46,7 @@ allOpen {
 }
 
 def debug = ""
-def cache = "--java-opts=-D"
+def cache = "-D"
 def grpcVersion = '1.75.0'
 
 description = """dodex-helidon-mp"""
@@ -52,7 +56,7 @@ tasks.withType(JavaCompile).configureEach {
 }
 
 ext {
-    helidonversion = "4.3.0"
+    helidonversion = "4.4.1"
     mainClass = "dmo.fs.server.DodexMain"
 }
 
@@ -62,8 +66,15 @@ repositories {
     gradlePluginPortal()
 }
 
-println("The project version************: ${project.helidonversion}")
+java {
+    sourceCompatibility = JavaVersion.VERSION_25
+    targetCompatibility = JavaVersion.VERSION_25
+}
+
+println("Java Version: " + JavaVersion.current()+" -- target: " + java.targetCompatibility)
+
 dependencies {
+    // implementation 'org.antlr:antlr4-runtime:4.10.1'
     implementation enforcedPlatform("io.helidon:helidon-dependencies:${project.helidonversion}")
     implementation 'io.helidon.microprofile.bundles:helidon-microprofile-core'
     implementation "io.helidon.common:helidon-common:${project.helidonversion}"
@@ -76,7 +87,6 @@ dependencies {
     implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.20.0"
     implementation "io.helidon.microprofile.websocket:helidon-microprofile-websocket:${project.helidonversion}"
 
-    annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.1.2.Final")
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-hibernate:${project.helidonversion}"
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-datasource-hikaricp:${project.helidonversion}"
     implementation "io.helidon.integrations.cdi:helidon-integrations-cdi-jta-weld:${project.helidonversion}"
@@ -134,17 +144,15 @@ dependencies {
     implementation "io.helidon.grpc:helidon-grpc-api:${project.helidonversion}"
     implementation "io.helidon.microprofile.grpc:helidon-microprofile-grpc-tracing:${project.helidonversion}"
     implementation "javax.annotation:javax.annotation-api"
+    annotationProcessor("org.hibernate.orm:hibernate-jpamodelgen:7.1.2.Final")
 
-    implementation 'org.apache.logging.log4j:log4j-core:2.25.2'
-    implementation 'org.apache.logging.log4j:log4j-api:2.25.2'
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
     implementation 'org.slf4j:slf4j-api:2.0.17'
-//    implementation 'org.slf4j:slf4j-simple:2.0.17'
+    implementation 'org.slf4j:slf4j-simple:2.0.17'
 
     implementation "io.helidon.build-tools.devloop:helidon-build-devloop:4.0.23"
     implementation 'org.jinq:jinq:2.0.3'
-
-    implementation "org.eclipse.microprofile.metrics:microprofile-metrics-api:5.1.2"
-    implementation "io.helidon.microprofile.metrics:helidon-microprofile-metrics:${project.helidonversion}"
 
     testImplementation 'org.hamcrest:hamcrest:2.2'
     testImplementation 'io.helidon.microprofile.testing:helidon-microprofile-testing-junit5'
@@ -177,7 +185,7 @@ run {
         mode = "dev"
         environment "MODE", "${mode}"
     }
-    args = ['run', "${mainClass}", debug, cache, "--enable-native-access=ALL-UNNAMED", "--sun-misc-unsafe-memory-access=allow"]
+    args = ['run', "${mainClass}", cache, debug]
 }
 
 test {
@@ -265,7 +273,7 @@ pmdTest {
 compileTestJava.dependsOn "jandex"
 test.dependsOn moveBeansXML
 run.dependsOn "jandex", moveBeansXML
-// -Xlint:none
+
 protobuf {
     protoc {
         artifact = 'com.google.protobuf:protoc:4.31.1'

@@ -1,5 +1,12 @@
 # Changelog
 
+## [v4.0.1](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2026-04-22)
+
+[Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v4.0.0..v4.0.1)
+
+* Upgraded to Helidon MP 4.4.1
+* Upgraded to Gradle 9.4.1 
+
 ## [v4.0.0](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2025-10-06)
 
 [Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v2.0.0..v4.0.0)

@@ -1,7 +1,6 @@
 import { validateForm, popupMessage, sleep } from "./validate/validate-form.js";
-import("jquery").then(jQuery => {
-  window.$ = jQuery.default;
-});
+import $ from 'jquery'
+// import jQuery from 'jquery'
 import {
   Command, HandicapSetup, RepeatHandicapSetup,
   HandicapData, Course, ListCouresResponse
@@ -12,8 +11,6 @@ import "../css/styles.css";
 import "bootstrap";
 import "../css/dtsel/dtsel.css";
 import dtselFunction from "./dtsel/dtsel.js";
-import "bootstrap-table/dist/bootstrap-table.css";
-import "bootstrap-table";
 import protobuf from "protobufjs";
 // per https://www.html-code-generator.com/html/drop-down/state-name
 import countryState from "./country-states/js/country-states.js";
@@ -21,6 +18,11 @@ import "./dodex";
 import axios from "axios";
 window.axios = axios;
 import "./weather.js";
+
+// This allows bootstrap-table beyond 1.21.2 with both esbuild and webpack
+window.$ = window.jQuery = $
+require("bootstrap-table/dist/bootstrap-table.css");
+require("bootstrap-table");
 
 dtselFunction();
 countryState("US");
@@ -766,10 +768,8 @@ function resetForm() {
   cancel.addEventListener("click", resetForm);
 
   // For webpack bundler
-  setTimeout(function () {
-    const table = window.$("#table")
-    $(function () {
-      table.bootstrapTable({ data: defaultData() })
-    })
-  }, 500);
+  const table = $("#table")
+  $(function () {
+    table.bootstrapTable({ data: defaultData() })
+  })
 })();

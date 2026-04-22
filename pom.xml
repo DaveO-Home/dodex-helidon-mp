@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>4.3.0</version>
+    <version>4.4.1</version>
     <relativePath/>
   </parent>
   <groupId>dodex-helidon</groupId>
@@ -14,16 +14,18 @@
   <version>1.1.0</version>
 
   <properties>
-    <helidon.version>4.3.0</helidon.version>
+    <helidon.version>4.4.1</helidon.version>
     <log4j.version>2.23.1</log4j.version>
     <slf4j.version>2.0.17</slf4j.version>
-    <kotlin.version>2.2.20</kotlin.version>
+    <kotlin.version>2.3.20</kotlin.version>
     <version.plugin.jar>3.4.2</version.plugin.jar>
     <mainClass>dmo.fs.server.DodexMain</mainClass>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <version.lib.google-protobuf>4.32.1</version.lib.google-protobuf>
     <version.lib.grpc>1.75.0</version.lib.grpc>
     <hibernate.version>7.1.2.Final</hibernate.version>
+    <maven.compiler.target>25</maven.compiler.target>
+    <maven.compiler.source>25</maven.compiler.source>
   </properties>
 
   <dependencies>
@@ -147,6 +149,7 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
+      <!--version>6.0.3</version-->
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -191,15 +194,6 @@
       <scope>runtime</scope>
     </dependency>
     <dependency>
-      <groupId>org.eclipse.microprofile.metrics</groupId>
-      <artifactId>microprofile-metrics-api</artifactId>
-      <version>5.1.2</version>
-    </dependency>
-    <dependency>
-      <groupId>io.helidon.microprofile.metrics</groupId>
-      <artifactId>helidon-microprofile-metrics</artifactId>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-core</artifactId>
       <version>2.15.2</version>
@@ -219,7 +213,7 @@
       <artifactId>helidon-microprofile-websocket</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.hibernate</groupId>
+      <groupId>org.hibernate.orm</groupId>
       <artifactId>hibernate-community-dialects</artifactId>
       <version>${hibernate.version}</version>
       <type>pom</type>
@@ -259,7 +253,7 @@
     <dependency>
       <groupId>io.helidon.common.testing</groupId>
       <artifactId>helidon-common-testing-http-junit5</artifactId>
-      <version>4.3.0</version>
+      <version>4.3.4</version>
       <scope>test</scope>
     </dependency>
     <dependency>
@@ -341,7 +335,8 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <version>5.11.4</version>
+      <!--version>5.11.4</version-->
+      <version>5.12.2</version>
     </dependency>
     <dependency>
       <groupId>org.jetbrains.kotlin</groupId>
@@ -401,7 +396,7 @@
             <path>
               <groupId>org.hibernate.orm</groupId>
               <artifactId>hibernate-processor</artifactId>
-              <version>7.1.1.Final</version>
+              <version>7.1.3.Final</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -409,7 +404,7 @@
           <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-processor</artifactId>
-            <version>7.1.1.Final</version>
+            <version>7.1.3.Final</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -646,6 +641,7 @@
             <!-- Defaults to Integer.MAX_VALUE -->
             <maxApplicationFailures>1024</maxApplicationFailures>
           </devLoop>
+	  <appJvmArgs>--sun-misc-unsafe-memory-access=allow</appJvmArgs>
         </configuration>
       </plugin>
     </plugins>

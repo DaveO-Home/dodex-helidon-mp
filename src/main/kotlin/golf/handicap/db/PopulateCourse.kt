@@ -154,7 +154,7 @@ class PopulateCourse : IPopulateCourse {
             courses.forEach { course ->
                 courseBuilder = newBuilder()
                 courseBuilder!!.id = course.courseSeq
-                courseBuilder!!.name = course.courseName
+                courseBuilder.name = course.courseName
                 course.ratings.forEach { rating ->
                     val ratingBuilder =
                         Rating.newBuilder()
@@ -163,12 +163,12 @@ class PopulateCourse : IPopulateCourse {
                             .setTee(rating.tee!!)
                             .setColor(rating.teeColor)
                             .setPar(rating.teePar!!)
-                    courseBuilder!!.addRatings(ratingBuilder)
+                    courseBuilder.addRatings(ratingBuilder)
                     ratingTees[rating.tee!!] = rating.tee!! // which tees have been added
                 }
                 if (coursesBuilder.isInitialized) {
                     // Generating placeholders for tees not defined
-                    setUndefinedTees(ratingTees, courseBuilder!!)
+                    setUndefinedTees(ratingTees, courseBuilder)
                     coursesBuilder.addCourses(courseBuilder)
                 }
             }
@@ -205,7 +205,7 @@ class PopulateCourse : IPopulateCourse {
             courses.forEach { course ->
                 courseBuilder = newBuilder()
                 courseBuilder!!.id = course.courseSeq
-                courseBuilder!!.name = course.courseName
+                courseBuilder.name = course.courseName
                 course.ratings.forEach { rating ->
                     val ratingBuilder =
                         Rating.newBuilder()
@@ -214,12 +214,12 @@ class PopulateCourse : IPopulateCourse {
                             .setTee(rating.tee!!)
                             .setColor(rating.teeColor)
                             .setPar(rating.teePar!!)
-                    courseBuilder!!.addRatings(ratingBuilder)
+                    courseBuilder.addRatings(ratingBuilder)
                     ratingTees[rating.tee!!] = rating.tee!! // which tees have been added
                 }
                 if (coursesBuilder.isInitialized) {
                     // Generating placeholders for tees not defined
-                    setUndefinedTees(ratingTees, courseBuilder!!)
+                    setUndefinedTees(ratingTees, courseBuilder)
                     coursesBuilder.addCourses(courseBuilder)
                 }
             }

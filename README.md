@@ -4,8 +4,8 @@ A synchronous server for Dodex, Dodex-Input and Dodex-Mess using the Helidon Vir
 
 ## Install Assumptions
 
-1. Java 21+ installed with JAVA_HOME set.
-2. Maven and Gradle 8.5.0 installed.
+1. Java 25+ installed with JAVA_HOME set.
+2. Maven and Gradle 9.4.1 installed.
 3. Javascript **node** with **npm** package manager installed.
 4. Helidon cli client.
 
