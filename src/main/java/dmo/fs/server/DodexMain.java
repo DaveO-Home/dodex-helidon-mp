@@ -59,19 +59,10 @@ public final class DodexMain {
     }
 
     static void checkInstallation() {
-        String fileDir = "./src/main/resources/WEB/static/node_modules/";
+        String fileDir = "./src/grpc/client/node_modules/";
         File checkDir = new File(fileDir);
         String mode = DodexUtil.getMode();
-        if("dev".equals(mode)) {
-            if (!checkDir.exists()) {
-                LOGGER.warn("{}{}{}", ColorUtilConstants.CYAN_BOLD_BRIGHT,
-                  "To install Dodex, execute 'npm install' in 'src/main/resources/WEB/static/'"
-                  , ColorUtilConstants.RESET);
-            }
-        }
-        fileDir = "./src/grpc/client/node_modules/";
-        checkDir = new File(fileDir);
-        mode = DodexUtil.getMode();
+
         if("dev".equals(mode)) {
             if (!checkDir.exists()) {
                 LOGGER.warn("{}{}{}", ColorUtilConstants.CYAN_BOLD_BRIGHT,

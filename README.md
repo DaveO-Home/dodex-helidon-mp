@@ -5,8 +5,8 @@ A synchronous server for Dodex, Dodex-Input and Dodex-Mess using the Helidon Vir
 ## Install Assumptions
 
 1. Java 25+ installed with JAVA_HOME set.
-2. Maven and Gradle 9.4.1 installed.
-3. Javascript **node** with **npm** package manager installed.
+2. Maven and Gradle 9.5.1 installed.
+3. JavaScript **node** with **npm** package manager installed.
 4. Helidon cli client.
 
 ### Install Dodex-Helidon-MP
@@ -16,50 +16,53 @@ Execute `npm install dodex-helidon-mp` or download from <https://github.com/Dave
 ### Why Helidon MP
 
 * Helidon supports two frameworks, __Helidon MP__ and __Helidon SE__. __MP__ is a Java EE annotated microprofile configuration whereas __SE__ is a framework supporting reactive programming.
-* Java 21+ and frameworks using Virtual Threads(Helidon MP) may be performant using traditional synchronous programming versus non-blocking asynchronous code on modern computer chip architecture.
+* Java 25+ and frameworks using Virtual Threads(Helidon MP) may be performant using traditional synchronous programming versus non-blocking asynchronous code on modern computer chip architecture.
 * Microprofile compliant
 
 ## Getting Started
 
 ### Quick Getting Started (docker)
 
-1. cd .../dodex-helidon-mp/src/main/resources/WEB/static and execute __`npm install`__ to install the dodex modules.
-2. In .../dodex-helidon-mp Execute __`docker build -t dodex-helidon:latest  .`__
-3. Execute __`docker run -d -p 8060:8060 --name dodex_helidon dodex-helidon:latest`__
-4. View in browser; __localhost:8060/test/index.html__ or __localhost:8060/test/bootstrap.html__
-5. To verify that the image is working, execute __`docker exec -ti  --tty  dodex_helidon /bin/sh`__
-6. To keep and run later, execute `docker stop dodex_helidon` and later `docker start dodex_helidon`
-7. To clean-up execute `docker stop dodex_helidon` and `docker rm dodex_helidon` and `docker rmi dodex-helidon`
-8. To verify cleanup execute `docker imiages`, execute __`docker rmi <image id>`__ to remove unwanted images.  
-    __Note:__ Assumes that `dodex-helidon-mp` is set up to use the __"h2"__ database, the default.
+1. cd .../dodex-helidon-mp/src/grpc/client and execute __`npm install`__ to install gRPC client dependencies.
+2. Execute either `npm run esbuild:prod` or `npm run webpack:prod` to install the JavaScript client.
+3. In .../dodex-helidon-mp Execute __`docker build -t dodex-helidon:latest  .`__
+4. Execute __`docker run -d -p 8060:8060 -p 8071:8071 -p 9901:9901 --name dodex_helidon dodex-helidon:latest`__
+5. View in browser; __localhost:8060/test/index.html__ or __localhost:8060/test/bootstrap.html__ and __localhost:8060/handicap.html__.
+6. To verify that the image is working, execute __`docker exec -ti  --tty  dodex_helidon /bin/sh`__
+7. To keep and run later, execute `docker stop dodex_helidon` and later `docker start dodex_helidon`
+8. To clean up execute `docker stop dodex_helidon`, `docker rm dodex_helidon` and `docker rmi dodex-helidon`
+9. To verify clean up execute `docker imiages`, execute __`docker rmi <image id>`__ to remove unwanted images.  
+    __Note:__ Assumes that `dodex-helidon-mp` is set up to use the __"h2"__ database, the default.  
+    Also `Envoy` is included in the Docker build. The proxy should run without any additional configuration. 
 
 ### Building `dodex-helidon-mp`
 
-1. cd .../dodex-helidon-mp/src/main/resources/WEB/static and execute __`npm install --save`__ to install the dodex modules.
+1. The __`dodex` css__ and __js__ library files are included as static resources, see; __src/main/resources/WEB/static/dodex__ and  __src/main/resources/WEB/static/css__ directories.
 2. To build for development use the __helidon__ client as it supports live-reload. Execute __`helidon dev`__, uses __pom.xml__.
 3. The other build method is; cd .../dodex-helidon-mp and execute __`gradlew run`__. This should also install java dependencies and startup the server against the default __h2__ database.
 4. Execute url `http://localhost:8060/test/index.html` in a browser.
 5. You can also run `http://localhost:8060/test/bootstrap.html` for a bootstrap example.
-6. Follow instructions for dodex at <https://www.npmjs.com/package/dodex-mess> and <https://www.npmjs.com/package/dodex-input>.
+6. Follow instructions for `dodex` at <https://www.npmjs.com/package/dodex-mess> and <https://www.npmjs.com/package/dodex-input>.
 
 ### Building `gRPC Application`
 
 1. cd .../dodex-helidon-mp/src/grpc/client and execute __`npm install`__ to install client dependencies.
 2. execute __`npm run esbuild:build`__ or __`npm run esbuild:prod`__ to build the gRPC client. Using __`esbuild`__ is fast and works well in development.
 3. Alternatively, execute __`npm run webpack:build`__ or __`npm run webpack:prod`__ for usage in a production __jar__.
-4. The __`gRPC`__ application uses a javascript client and requires a Proxy Server to communicate with the backend Helidon server.
-5. Included is a __`Envoy`__ configuration in `.../dodex-helidon-map/handicap/handicap.yaml`
+4. The __`gRPC`__ application uses a JavaScript client and requires a Proxy Server to communicate with the backend Helidon server.
+5. Included is an __`Envoy`__ configuration in `.../dodex-helidon-map/handicap/handicap.yaml`
 6. To use the envoy proxy;
    * Install the envoy executable or startup as a docker container
    * Once installed, startup by executing __`.../dodex-helidon-mp/start.envoy`__
-7. Startup the Helidon Server; __`helidon dev`__ or `gradlew run`
+7. Startup the Helidon Server; __`helidon dev`__ or `gradlew run`  
+   * First execution of `gradlew run` may fail with `WELD-001334: Unsatisfied dependencies for type DodexDatabaseH2 with qualifiers`, simply re-run.
 8. Browse the application at __`localhost:8060/handicap.html`__
 9. Additional information; https://github.com/DaveO-Home/dodex-helidon-mp/blob/main/handicap/README.md
 
 ### Operation
 
 1. The Dodex-Helidon backend uses __Hibernate/HikariCP__ to persist data.
-2. The application is configured to use __Websocket__, __OpenAPI__ and __gRPC__ endpoints to communicate with frontend HTML/javascript.
+2. The application is configured to use __Websocket__, __OpenAPI__ and __gRPC__ endpoints to communicate with frontend HTML/JavaScript.
 3. Multiple databases are supported, to configure see;  
    * __.../src/main/resources/META-INF/persistence.xml__ for connection properties, persistence units and hibernate configuration.
 4. Once the connection properties are configured, simply set the environment variable __`DEFAULT_DB`__ to one of the databases listed below. The mode defaults to __`dev`__, set __`MODE=prod`__ for production.
@@ -71,7 +74,7 @@ Execute `npm install dodex-helidon-mp` or download from <https://github.com/Dave
    *  __`ibmdb2`__
 5. Building the Production Jar with supporting libraries using Maven.
    * Before building the Jar for production.
-      * Make sure dodex is installed at ./src/main/resources/WEB/static by running __`npm install`__.
+      * Make sure the handicap gRPC client is installed at ./src/grpc/client by running __`npm install`__ and `npm run webpack:prod`.
       * Also consider setting up a production database.
    * Execute __`mvn package`__ to generate the production jar(dodex-helidon-mp.jar) in __./target__ and __./target/libs__.
    * Set desired environment variables __`DEFAULT_DB`__ and __`MODE`__ or use Java system properties __`-DDEFAULT_DB=postgres`__ and __`-DMODE=prod`__.
@@ -85,7 +88,7 @@ Execute `npm install dodex-helidon-mp` or download from <https://github.com/Dave
 
 ## Java Linting with PMD
 
-__Note:__ PMD is not ready for Java-21 - "ClassNotFoundException: net.sourceforge.pmd.ant.PMDTask". However, all the PMD 7 deprecations have been fixed in __`dodexstart.xml`__.
+__Note:__ PMD is not ready for Java-25 - "ClassNotFoundException: net.sourceforge.pmd.ant.PMDTask". However, all the PMD 7 deprecations have been fixed in __`dodexstart.xml`__.
 * Run `gradlew pmdMain` and `gradlew pmdTest` to verify code using a subset of PMD rules in __`dodexstart.xml`__
 * Reports can be found in `build/reports/pmd`
 
@@ -101,8 +104,8 @@ __Note:__ PMD is not ready for Java-21 - "ClassNotFoundException: net.sourceforg
 
 ## Dodex Groups using OpenAPI
 
-* A default javascript client is included in __.../dodex-helidon-mp/src/main/resources/WEB/static/group/__. It can be regenerated in __.../dodex-helidon-mp/src/openapi/client/__ by executing __`npm run group:prod`__.
-* The group javascript client is in __.../src/grpc/client/js/dodex/groups.js__ and __group.js__.  
+* A default JavaScript client is included in __.../dodex-helidon-mp/src/main/resources/WEB/static/group/__. It can be regenerated in __.../dodex-helidon-mp/src/openapi/client/__ by executing __`npm run group:prod`__.
+* The group JavaScript client is in __.../src/grpc/client/js/dodex/groups.js__ and __group.js__.  
   __Note:__ The client is included in the application by default.
 * See __.../src/main/resources/META-INF/openapi.yaml__ for OpenAPI declarations. You can view and test the configuration for development at __http://localhost:8060/openapi/ui/index.html__. If there is an error, explore with __/openapi/__.
 * The implementation uses a __REST__ api in the __GroupResource__ class.

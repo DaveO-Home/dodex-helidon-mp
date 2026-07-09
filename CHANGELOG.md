@@ -1,5 +1,17 @@
 # Changelog
 
+## [v4.0.2](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2026-07-09)
+
+[Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v4.0.1..v4.0.2)
+
+* Upgraded to Helidon MP 4.5.0
+* Upgraded to Gradle 9.5.1
+* Upgraded java/kotlin and JavaScript dependencies
+* Removed node_modules from classpath(build). See directory `..../WEB/static/test`
+  * no need to install dodex `npm install` in `src/main/resources/WEB/static` included by default and package.json removed.
+  * to rebuild `cd src/grpc/client` and execute `npm run dodex:build` or `npm run dodex:prod`.
+* Fixed Docker build
+
 ## [v4.0.1](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2026-04-22)
 
 [Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v4.0.0..v4.0.1)

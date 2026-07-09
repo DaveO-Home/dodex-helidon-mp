@@ -14,34 +14,49 @@
 # limitations under the License.
 #
 
-# 1st stage, build the app
-FROM maven:3.9.5-amazoncorretto-21 as build
+FROM envoyproxy/envoy:v1.29-latest AS builder
+FROM ubuntu:latest
 
-WORKDIR /helidon
+COPY --from=builder /usr/local/bin/envoy /usr/bin/
 
-# Create a first layer to cache the "Maven World" in the local repository.
-# Incremental docker builds will always resume after that, unless you update
-# the pom
-ADD pom.xml .
-RUN mvn package -Dmaven.test.skip -Declipselink.weave.skip
+USER root:root
 
-# Do the Maven build!
-# Incremental docker builds will resume here when you change sources
-ADD src src
-RUN mvn package -DskipTests
+RUN apt-get update && \
+    apt-get install -y openjdk-25-jre-headless && \
+    apt-get clean;
 
-RUN echo "done!"
+RUN adduser dodex --disabled-password
 
-# 2nd stage, build the runtime image
-FROM openjdk:21
-WORKDIR /helidon
-
-# Copy the binary built in the 1st stage
-COPY --from=build /helidon/target/dodex-mp.jar ./
-COPY --from=build /helidon/target/libs ./libs
-
-CMD ["java", "-jar", "dodex-mp.jar"]
+RUN mkdir /envoy && mkdir /data && chown 1000 /data && mkdir /data/db && mkdir /data/h2
+COPY handicap/handicap.yaml /etc/envoy/envoy.yaml
+RUN chmod go+r /etc/envoy/envoy.yaml && chmod o+w /data/db && chmod o+w /data/h2
 
 EXPOSE 8060
+EXPOSE 8061
+EXPOSE 9901
 
-# You may require a Docker network (docker network create testnet) if database is running in a container
+COPY handicap/run_dodex.sh /usr/bin
+RUN chmod o+x /usr/bin/run_dodex.sh
+
+USER dodex:dodex
+
+RUN mkdir /home/dodex/helidon && mkdir /home/dodex/helidon/logs
+
+VOLUME ~
+
+COPY ./target/dodex-helidon-mp.jar /home/dodex/helidon/dodex-helidon-mp.jar
+COPY ./target/libs  /home/dodex/helidon/libs
+
+WORKDIR /home/dodex/helidon
+
+ENV JAVA_HOME=/usr/lib/jvm/java-25-openjdk-amd64/
+# make helidon http run on this address
+ENV DOCKER_HOST=0.0.0.0
+# Can change to either "postgres" or "mariadb" or override in docker create/run
+ENV DEFAULT_DB=h2
+ENV USE_HANDICAP=true
+ENV MODE=prod
+
+USER dodex
+
+CMD ["/usr/bin/bash", "/usr/bin/run_dodex.sh"]

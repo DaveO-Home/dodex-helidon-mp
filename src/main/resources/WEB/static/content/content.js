@@ -94,13 +94,13 @@
 					<div class="row">
 					  <div class="footer-col col-sm-10">
 						<ul class="list-inline" style="width:345px;">
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.facebook.com/" target="_"><i class="fa fa-fw fa-facebook"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://news.google.com/" target="_"><i class="fa fa-fw fa-google"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://twitter.com/Twitter" target="_"><i class="fa fa-fw fa-twitter"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://instagram.com" target="_"><i class="fa fa-fw fa-instagram"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.linkedin.com/" target="_"><i class="fa fa-fw fa-linkedin"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://dribbble.com/" target="_"><i class="fa fa-fw fa-dribbble"></i></a></li>
-						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.reddit.com/" target="_"><i class="fa fa-fw fa-reddit"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.facebook.com/" target="_"><i class="fa-brands fa-facebook"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://news.google.com/" target="_"><i class="fa-brands fa-google"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://bsky.app/r" target="_"><i class="fa-brands fa-bluesky"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://instagram.com" target="_"><i class="fa-brands fa-instagram"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.linkedin.com/" target="_"><i class="fa-brands fa-linkedin"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://dribbble.com/" target="_"><i class="fa-brands fa-dribbble"></i></a></li>
+						  <li class="list-inline-item"><a class="btn-social btn-outline" href="https://www.reddit.com/" target="_"><i class="fa-brands	 fa-reddit"></i></a></li>
 
 						  <li class="list-inline-item" style="width:46%;"><h1 style="font-size: 14px; float:right; padding-right: 4px;">
 						  <svg width="17" style="font-family: 'Open Sans', sans-serif;" height="20">

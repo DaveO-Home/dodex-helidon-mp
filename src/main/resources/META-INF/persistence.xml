@@ -221,7 +221,7 @@
             <property name="jakarta.persistence.jdbc.url"
                       value="jdbc:sqlserver://localhost:1433;databaseName=dodex;encrypt=false;user=dodex;password=Sqlserver2" />
             <property name="jakarta.persistence.jdbc.user" value="dodex" />
-            <property name="jakarta.persistence.jdbc.password" value="Sqlserver2" />
+            <property name="jakarta.persistence.jdbc.password" value="SqlServer2" />
             <property name="hibernate.hikari.minimumIdle" value="5" />
             <property name="hibernate.hikari.maximumPoolSize" value="10" />
             <property name="hibernate.hikari.idleTimeout" value="30000" />

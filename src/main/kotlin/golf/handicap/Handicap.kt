@@ -12,14 +12,15 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
-import java.util.logging.Logger
+import org.apache.logging.log4j.LogManager
+import java.util.Arrays
+import java.util.Date
 
 class Handicap {
     companion object {
     }
 
-    private val LOGGER = Logger.getLogger(Handicap::class.java.name)
+    private val LOGGER = LogManager.getLogger(Handicap::class.java.name)
     private var diffkeys = Array(20) { " " }
     private var diffScores = FloatArray(20) { -100f }
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")

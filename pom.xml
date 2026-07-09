@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.helidon.applications</groupId>
     <artifactId>helidon-mp</artifactId>
-    <version>4.4.1</version>
+    <version>4.5.0</version>
     <relativePath/>
   </parent>
   <groupId>dodex-helidon</groupId>
@@ -14,16 +14,16 @@
   <version>1.1.0</version>
 
   <properties>
-    <helidon.version>4.4.1</helidon.version>
-    <log4j.version>2.23.1</log4j.version>
-    <slf4j.version>2.0.17</slf4j.version>
-    <kotlin.version>2.3.20</kotlin.version>
+    <helidon.version>4.5.0</helidon.version>
+    <log4j.version>2.26.1</log4j.version>
+    <slf4j.version>2.0.18</slf4j.version>
+    <kotlin.version>2.4.0</kotlin.version>
     <version.plugin.jar>3.4.2</version.plugin.jar>
     <mainClass>dmo.fs.server.DodexMain</mainClass>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <version.lib.google-protobuf>4.32.1</version.lib.google-protobuf>
-    <version.lib.grpc>1.75.0</version.lib.grpc>
-    <hibernate.version>7.1.2.Final</hibernate.version>
+    <version.lib.google-protobuf>4.35.1</version.lib.google-protobuf>
+    <version.lib.grpc>1.82.1</version.lib.grpc>
+    <hibernate.version>7.4.3.Final</hibernate.version>
     <maven.compiler.target>25</maven.compiler.target>
     <maven.compiler.source>25</maven.compiler.source>
   </properties>
@@ -125,7 +125,7 @@
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
-      <version>8.0.2.Final</version>
+      <version>8.0.4.Final</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
@@ -276,7 +276,7 @@
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
-      <version>42.7.0</version>
+      <version>42.7.12</version>
     </dependency>
     <dependency>
       <groupId>com.h2database</groupId>
@@ -286,22 +286,22 @@
     <dependency>
       <groupId>org.mariadb.jdbc</groupId>
       <artifactId>mariadb-java-client</artifactId>
-      <version>3.3.1</version>
+      <version>3.5.9</version>
     </dependency>
     <dependency>
       <groupId>com.oracle.database.jdbc</groupId>
       <artifactId>ojdbc11</artifactId>
-      <version>23.9.0.25.07</version>
+      <version>23.26.2.0.0</version>
     </dependency>
     <dependency>
       <groupId>com.microsoft.sqlserver</groupId>
       <artifactId>mssql-jdbc</artifactId>
-      <version>12.10.1.jre11</version>
+      <version>13.4.0.jre11</version>
     </dependency>
     <dependency>
       <groupId>com.ibm.db2</groupId>
       <artifactId>jcc</artifactId>
-      <version>11.5.9.0</version>
+      <version>12.1.5.0</version>
     </dependency>
     <dependency>
       <groupId>io.grpc</groupId>
@@ -335,7 +335,6 @@
     <dependency>
       <groupId>org.junit.vintage</groupId>
       <artifactId>junit-vintage-engine</artifactId>
-      <!--version>5.11.4</version-->
       <version>5.12.2</version>
     </dependency>
     <dependency>
@@ -353,6 +352,12 @@
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib-jdk8</artifactId>
       <version>${kotlin.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.antlr</groupId>
+      <artifactId>antlr4-runtime</artifactId>
+      <version>4.10.1</version>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
   <build>
@@ -390,13 +395,13 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.14.1</version>
+        <version>3.15.0</version>
         <configuration>
           <annotationProcessorPaths>
             <path>
               <groupId>org.hibernate.orm</groupId>
               <artifactId>hibernate-processor</artifactId>
-              <version>7.1.3.Final</version>
+              <version>7.2.21.Final</version>
             </path>
           </annotationProcessorPaths>
         </configuration>
@@ -404,7 +409,7 @@
           <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-processor</artifactId>
-            <version>7.1.3.Final</version>
+            <version>7.2.21.Final</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -641,7 +646,7 @@
             <!-- Defaults to Integer.MAX_VALUE -->
             <maxApplicationFailures>1024</maxApplicationFailures>
           </devLoop>
-	  <appJvmArgs>--sun-misc-unsafe-memory-access=allow</appJvmArgs>
+	      <appJvmArgs>--sun-misc-unsafe-memory-access=allow</appJvmArgs>
         </configuration>
       </plugin>
     </plugins>

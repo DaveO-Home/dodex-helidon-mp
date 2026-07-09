@@ -7,6 +7,14 @@ server:
       observers:
         health:
           details: true
+    static-content:
+      memory-cache:
+        enabled:false
+      classpath:memory-cache:
+        enabled:false
+      path:memory-cache:
+        enabled:false
+
 #  sockets:
 #    - name: "grpc"
 #      port: 8061
@@ -48,3 +56,9 @@ port: 8061
 handicap:
   enable.admin: false
   admin.pin: "hand!cap"
+
+#  server.features.static-content.classpath.memory-cache
+#
+#  server.features.static-content.memory-cache
+#
+#  server.features.static-content.path.memory-cache

@@ -21,7 +21,7 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.util.*
 import java.util.Date
-import java.util.logging.Logger
+import org.apache.logging.log4j.LogManager
 
 
 class PopulateGolferScores : SqlConstants(), IPopulateGolferScores {
@@ -36,7 +36,7 @@ class PopulateGolferScores : SqlConstants(), IPopulateGolferScores {
     private var overlapYears = false
 
     companion object {
-        private val LOGGER = Logger.getLogger(PopulateGolferScores::class.java.name)
+        private val LOGGER = LogManager.getLogger(PopulateGolferScores::class.java.name)
     }
 
     private fun setPeriod(year: String) {

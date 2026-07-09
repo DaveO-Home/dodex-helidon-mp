@@ -13,6 +13,8 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.inject.spi.CDI;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+//import org.apache.logging.log4j.LogManager;
+//import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -106,7 +108,7 @@ public abstract class DbConfiguration {
                 isUsingMssql = true;
             }
         } catch (Exception exception) {
-            throw exception;
+            throw new RuntimeException(exception.getMessage());
         }
 
         return (T) dodexDatabase;

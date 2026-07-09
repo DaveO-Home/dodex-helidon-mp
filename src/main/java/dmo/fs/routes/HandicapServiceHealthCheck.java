@@ -91,7 +91,6 @@ public class HandicapServiceHealthCheck implements HealthCheck {
             HandicapData res = service.getGolfer(
               HandicapSetup.newBuilder().setMessage("Get Golfer").setCmd(3).setJson("{\"pin\":\"XX1234\"}").build());
             readiness = res.getMessage().equals("No Golfer Found");
-//            readiness = true;
         } catch (Exception e) {
             readiness = false;
             logger.info("CheckReadiness: {}", e.getMessage());

@@ -18,13 +18,13 @@ import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.persistence.criteria.Predicate
 import jakarta.persistence.criteria.Root
 import jakarta.transaction.Transactional
-import java.util.*
-import java.util.logging.Logger
+import org.apache.logging.log4j.LogManager
+import java.util.Locale
 
 
 class PopulateCourse : IPopulateCourse {
     companion object {
-        private val LOGGER = Logger.getLogger(PopulateCourse::class.java.name)
+        private val LOGGER = LogManager.getLogger(PopulateCourse::class.java.name)
     }
 
     @Transactional
@@ -176,7 +176,7 @@ class PopulateCourse : IPopulateCourse {
                 coursesBuilder.addCourses(newBuilder())
             }
         } catch (nre: NoResultException) {
-            LOGGER.severe("Query Courses: " + nre.message)
+            LOGGER.error("Query Courses: " + nre.message)
         } finally {
             if (em.isOpen) {
                 em.close()
@@ -227,7 +227,7 @@ class PopulateCourse : IPopulateCourse {
                 coursesBuilder.addCourses(newBuilder())
             }
         } catch (nre: NoResultException) {
-            LOGGER.severe("Query Courses: " + nre.message)
+            LOGGER.error("Query Courses: " + nre.message)
         } finally {
             if (em.isOpen) {
                 em.close()

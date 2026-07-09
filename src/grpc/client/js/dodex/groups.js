@@ -176,5 +176,5 @@ const groupData = async (url = "", data = {}, method = "GET") => {
 }
 
 const protocol = window.location.protocol;
-const port = window.location.port == "8890" ? "8880" : window.location.port == "8888" ? "8087" : window.location.port.toString();
+const port = window.location.port === "8890" ? "8880" : window.location.port === "8888" ? "8087" : window.location.port.toString();
 const server = window.location.hostname + (port.length > 0 ? ":" + port : "");

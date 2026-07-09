@@ -8,12 +8,14 @@ import jakarta.persistence.NoResultException
 import jakarta.persistence.Query
 import jakarta.persistence.criteria.CriteriaQuery
 import jakarta.transaction.Transactional
+import org.apache.logging.log4j.LogManager
+import org.slf4j.Logger
 import java.time.LocalDateTime
-import java.util.logging.Logger
+//import java.util.logging.Logger
 
 class PopulateScore : SqlConstants(), IPopulateScore {
     companion object {
-        private val LOGGER = Logger.getLogger(PopulateScore::class.java.name)
+        private val LOGGER = LogManager.getLogger(PopulateScore::class.java.name)
     }
 
     @Transactional
@@ -89,7 +91,7 @@ class PopulateScore : SqlConstants(), IPopulateScore {
         } catch (nre: NoResultException) {
             LOGGER.info(nre.message)
         } catch (e: Exception) {
-            LOGGER.severe(e.message)
+            LOGGER.error(e.message)
         }
 
         return scores
