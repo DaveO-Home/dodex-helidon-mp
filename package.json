@@ -1,6 +1,6 @@
 {
   "name": "dodex-helidon-mp",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "A synchronous server for Dodex, Dodex-Input and Dodex-Mess",
   "main": "index.js",
   "scripts": {

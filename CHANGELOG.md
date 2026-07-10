@@ -1,5 +1,12 @@
 # Changelog
 
+## [v4.0.3](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2026-07-10)
+
+[Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v4.0.2..v4.0.3)
+
+* Added missing step to Docker build. (Execute `mvn package` to build `jar` file and `libs`.)
+* Added Dockerfile2 to use from the Docker.io prebuilt image instead of using the `mvn package`
+
 ## [v4.0.2](https://github.com/DaveO-Home/dodex-helidon-mp/tree/v1.0.0) (2026-07-09)
 
 [Full Changelog](https://github.com/DaveO-Home/dodex-helidon-mp/compare/v4.0.1..v4.0.2)

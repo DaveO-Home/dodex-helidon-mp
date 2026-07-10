@@ -25,13 +25,14 @@ Execute `npm install dodex-helidon-mp` or download from <https://github.com/Dave
 
 1. cd .../dodex-helidon-mp/src/grpc/client and execute __`npm install`__ to install gRPC client dependencies.
 2. Execute either `npm run esbuild:prod` or `npm run webpack:prod` to install the JavaScript client.
-3. In .../dodex-helidon-mp Execute __`docker build -t dodex-helidon:latest  .`__
-4. Execute __`docker run -d -p 8060:8060 -p 8071:8071 -p 9901:9901 --name dodex_helidon dodex-helidon:latest`__
-5. View in browser; __localhost:8060/test/index.html__ or __localhost:8060/test/bootstrap.html__ and __localhost:8060/handicap.html__.
-6. To verify that the image is working, execute __`docker exec -ti  --tty  dodex_helidon /bin/sh`__
-7. To keep and run later, execute `docker stop dodex_helidon` and later `docker start dodex_helidon`
-8. To clean up execute `docker stop dodex_helidon`, `docker rm dodex_helidon` and `docker rmi dodex-helidon`
-9. To verify clean up execute `docker imiages`, execute __`docker rmi <image id>`__ to remove unwanted images.  
+3. Execute __`mvn package`__ to build `jar` file and `libs`.
+4. In .../dodex-helidon-mp Execute __`docker build -t dodex-helidon:latest  .`__ or execute __`docker build --no-cache -t dodex-helidon:latest . -f Dockerfile2`__ to use the prebuilt image.
+5. Execute __`docker run -d -p 8060:8060 -p 8071:8071 -p 9901:9901 --name dodex_helidon dodex-helidon:latest`__
+6. View in browser; __localhost:8060/test/index.html__ or __localhost:8060/test/bootstrap.html__ and __localhost:8060/handicap.html__.
+7. To verify that the image is working, execute __`docker exec -ti  --tty  dodex_helidon /bin/sh`__
+8. To keep and run later, execute `docker stop dodex_helidon` and later `docker start dodex_helidon`
+9. To clean up execute `docker stop dodex_helidon`, `docker rm dodex_helidon` and `docker rmi dodex-helidon`
+10. To verify clean up execute `docker imiages`, execute __`docker rmi <image id>`__ to remove unwanted images.  
     __Note:__ Assumes that `dodex-helidon-mp` is set up to use the __"h2"__ database, the default.  
     Also `Envoy` is included in the Docker build. The proxy should run without any additional configuration. 
 
